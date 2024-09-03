@@ -9,7 +9,7 @@
 </p> 
 
 ## **Overall description** 
-- This repository contains the codebase and datasets for the AKG-LA project, which is associated with our research paper titled "When Archive Knowledge Graph Meets Linear Attention: A Lightweight Privacy-Preserving Recommender System". The code provided here is exclusively for the purpose of anonymous peer review.
+- This repository contains the codebase and datasets for the AKG-LA project, which is associated with our research paper titled "When Archive Knowledge Graph Meets Linear Attention: A Lightweight Privacy-Preserving Recommender System". The code provided here is exclusively for the purpose of peer review.
 ## **Code description** 
 ### **Implementation details**
 We implemented AKG-LA with TensorFlow and accelerated the model training using an Intel® Xeon® Silver 4210 CPU @ 2.20GHz CPU and NVIDIA RTX 3090 (24G) GPU. The operating system is Ubuntu 22.04, the system memory is 126G, and the coding platform is Pycharm.
