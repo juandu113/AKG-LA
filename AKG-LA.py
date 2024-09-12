@@ -194,12 +194,12 @@ class AKG_LA:
             return prediction
 
     def attention(self, item_ebd, attribute_ebd):
-        prompt_templates = tf.concat([item_ebd, attribute_ebd], axis=1)  # ?, ?, 16
-        dim_user_0, dim_user_1 = tf.shape(prompt_templates)[0], tf.shape(prompt_templates)[1]
+        sum_embeds = tf.concat([item_ebd, attribute_ebd], axis=1)  # ?, ?, 16
+        dim_user_0, dim_user_1 = tf.shape(sum_embeds)[0], tf.shape(sum_embeds)[1]
         w_p = self.all_weights['W_p']  # 16, 16
         b_p = self.all_weights['b_p']  # 1, 16
         h_p = self.all_weights['h_p']  # 16, 1
-        ebd_form = tf.reshape(prompt_templates, [-1, self.ebd_size])  # ?, 16
+        ebd_form = tf.reshape(sum_embeds, [-1, self.ebd_size])  # ?, 16
         mlp_network = tf.nn.relu(tf.matmul(ebd_form, w_p) + b_p)  # [?, 16]
         exp_weights = tf.exp(tf.reshape(tf.matmul(mlp_network, h_p),
                                         [dim_user_0, dim_user_1]))  # [?, sequence_length]
@@ -211,7 +211,7 @@ class AKG_LA:
 
         resulted_ebd = tf.expand_dims(tf.math.divide(masked_ebd, exp_sum), axis=2)  # [?, sequence_length, 1]
 
-        resulted_ebd = tf.reduce_sum(resulted_ebd * prompt_templates, axis=1)
+        resulted_ebd = tf.reduce_sum(resulted_ebd * sum_embeds, axis=1)
 
         return resulted_ebd
 
